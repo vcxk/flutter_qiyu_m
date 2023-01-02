@@ -73,6 +73,14 @@ class QiYu {
     return await _channel.invokeMethod('setCustomUIConfig', params);
   }
 
+  static Future<bool> setServiceHeadImageUrl(String url) async {
+    return await _channel.invokeMethod("setServiceHeadImageUrl",{"url":url});
+  }
+
+  static Future<bool> setCustomerHeadImageUrl(String url) async {
+    return await _channel.invokeMethod("setCustomerHeadImageUrl",{"url":url});
+  }
+
   static Future<int> getUnreadCount() async {
     return await _channel.invokeMethod('getUnreadCount', {});
   }

@@ -105,8 +105,16 @@ public class FlutterQiyuPlugin implements FlutterPlugin, MethodCallHandler {
             this.setUserInfo(call, result);
         } else if (call.method.equals("logout")) {
             this.logout();
+            result.success(true);
         } else if (call.method.equals("cleanCache")) {
             this.cleanCache();
+            result.success(true);
+        } else if (call.method.equals("setCustomerHeadImageUrl")) {
+            ysfOptions.uiCustomization.leftAvatar = call.argument("url");
+            result.success(true);
+        } else if (call.method.equals("setServiceHeadImageUrl")) {
+            ysfOptions.uiCustomization.rightAvatar = call.argument("url");
+            result.success(true);
         } else {
             result.notImplemented();
         }

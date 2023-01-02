@@ -59,6 +59,12 @@
     } else if ([@"cleanCache" isEqualToString:call.method]) {
         [self cleanCache];
         result([NSNumber numberWithBool:YES]);
+    } else if ([@"setCustomerHeadImageUrl" isEqualToString:call.method]){
+        [[QYSDK sharedSDK] customUIConfig].customerHeadImageUrl = call.arguments[@"url"];
+        result([NSNumber numberWithBool:YES]);
+    } else if ([@"setServiceHeadImageUrl" isEqualToString:call.method]) {
+        [[QYSDK sharedSDK] customUIConfig].serviceHeadImageUrl = call.arguments[@"url"];
+        result([NSNumber numberWithBool:YES]);
     } else {
         result(FlutterMethodNotImplemented);
     }
