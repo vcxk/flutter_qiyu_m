@@ -38,6 +38,8 @@ public class FlutterQiyuPlugin implements FlutterPlugin, MethodCallHandler {
 
     public static void initSDK(Context context, String appKey) {
         YSFOptions ysfOptions = new YSFOptions();
+        ysfOptions.uiCustomization = new UICustomization();
+        sysfOptions = ysfOptions;
         ysfOptions.statusBarNotificationConfig = new StatusBarNotificationConfig();
         ysfOptions.onBotEventListener = new OnBotEventListener() {
             @Override
@@ -58,6 +60,8 @@ public class FlutterQiyuPlugin implements FlutterPlugin, MethodCallHandler {
      */
     public static void config(Context context, String appKey) {
         YSFOptions ysfOptions = new YSFOptions();
+        ysfOptions.uiCustomization = new UICustomization();
+        sysfOptions = ysfOptions;
         ysfOptions.statusBarNotificationConfig = new StatusBarNotificationConfig();
         ysfOptions.onBotEventListener = new OnBotEventListener() {
             @Override
@@ -72,6 +76,8 @@ public class FlutterQiyuPlugin implements FlutterPlugin, MethodCallHandler {
 
         Unicorn.config(context.getApplicationContext(), appKey, ysfOptions, new GlideImageLoader(context));
     }
+
+    private static YSFOptions sysfOptions;
 
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
@@ -130,10 +136,10 @@ public class FlutterQiyuPlugin implements FlutterPlugin, MethodCallHandler {
             this.cleanCache();
             result.success(true);
         } else if (call.method.equals("setCustomerHeadImageUrl")) {
-            ysfOptions.uiCustomization.leftAvatar = call.argument("url");
+            sysfOptions.uiCustomization.rightAvatar = call.argument("url");
             result.success(true);
         } else if (call.method.equals("setServiceHeadImageUrl")) {
-            ysfOptions.uiCustomization.rightAvatar = call.argument("url");
+            sysfOptions.uiCustomization.leftAvatar = call.argument("url");
             result.success(true);
         } else {
             result.notImplemented();
