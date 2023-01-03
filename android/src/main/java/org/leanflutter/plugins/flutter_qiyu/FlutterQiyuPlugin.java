@@ -36,6 +36,26 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 public class FlutterQiyuPlugin implements FlutterPlugin, MethodCallHandler {
     private static final String CHANNEL_NAME = "flutter_qiyu";
 
+    public static void initSDK(Context context, String appKey) {
+        YSFOptions ysfOptions = new YSFOptions();
+        ysfOptions.statusBarNotificationConfig = new StatusBarNotificationConfig();
+        ysfOptions.onBotEventListener = new OnBotEventListener() {
+            @Override
+            public boolean onUrlClick(Context context, String url) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                context.startActivity(intent);
+                return true;
+            }
+        };
+        // 如果项目中使用了 Glide 可以通过设置 gifImageLoader 去加载 gif 图片
+        ysfOptions.gifImageLoader = new GlideGifImagerLoader(context);
+
+        Unicorn.init(context.getApplicationContext(), appKey, ysfOptions, new GlideImageLoader(context));
+    }
+
+    /**
+     * Plugin registration.
+     */
     public static void config(Context context, String appKey) {
         YSFOptions ysfOptions = new YSFOptions();
         ysfOptions.statusBarNotificationConfig = new StatusBarNotificationConfig();
